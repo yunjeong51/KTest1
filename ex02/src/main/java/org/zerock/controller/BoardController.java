@@ -28,7 +28,7 @@ public class BoardController {
 		log.info("list 요청");
 		model.addAttribute("list", service.getList(cri));
 //		model.addAttribute("count", service.count());
-		model.addAttribute("pageMaker", new PageDTO(cri,123L));
+		model.addAttribute("pageMaker", new PageDTO(cri,service.count()));
 	}
 	//등록하기위한 화면 요청(등록화면 만들기 오후수업)
 	@GetMapping("/register")
@@ -49,8 +49,9 @@ public class BoardController {
 	
 	
 	//조회 /get?bno=13(get) -> /board/get.jsp, 수정화면 열기 /modify(get) -> /board.modify.jsp
+	//->변경 /get?bno=13&pageNum=2&amount=10
 	@GetMapping({"/get","/modify"})
-	public void get(Long bno,Model model) {
+	public void get(Long bno,Criteria cri, Model model) {
 		model.addAttribute("board", service.get(bno));
 	}
 	

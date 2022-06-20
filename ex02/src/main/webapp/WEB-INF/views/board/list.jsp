@@ -35,7 +35,7 @@
                                 <c:forEach var="board" items="${list}">
                                     <tr class="odd gradeX">
                                         <td>${board.bno}</td>
-                                        <td><a href="/board/get?bno=${board.bno}">${board.title}</a></td>
+                                        <td><a href="/board/get?bno=${board.bno}&pageNum=${pageMaker.cri.pageNum}&amount=${pageMaker.cri.amount}">${board.title}</a></td>
                                         <td><c:out value="${board.writer}"></c:out></td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd " value="${board.regdate}" /></td>
                                         <td><fmt:formatDate pattern="MM-dd hh:mm" value="${board.updatedate}" /></td>
@@ -48,7 +48,17 @@
                             </c:if>
                             
                             <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
-                            	<a href="/board/list?pageNum=${num}&amount=${pageMaker.cri.amount}">${num}</a> &nbsp;&nbsp;&nbsp;&nbsp;	
+                            	<a href="/board/list?pageNum=${num}&amount=${pageMaker.cri.amount}">
+								<!--숫자 진하게 하기 현재페이지를 ${param.pageNum} or ${pageMaker.cri.pageNum} or {critera.pageNum} -->
+                            	<c:if test="${pageMaker.cri.pageNum == num }">
+                            	<b>${num}</b>
+                            	</c:if>
+                            	
+                            	<c:if test="${pageMaker.cri.pageNum != num }">
+                            		${num}
+                            	</c:if>
+                            
+                            	</a> &nbsp;&nbsp;&nbsp;&nbsp;	
                             </c:forEach>
                             
                             <c:if test="${pageMaker.next}">
